@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 
@@ -5,12 +6,13 @@ namespace AG2187
 {
     public class Finding : MonoBehaviour
     {
+
         [SerializeField] private GameObject findGameobjectByDrag;
         [SerializeField] private GameObject findGameobjectByName;
         [SerializeField] private GameObject findGameobjectByType;
         [SerializeField] private GameObject findGameobjectWithTag;
         [SerializeField] private GameObject findGameobjectByOrderChild;
-        [SerializeField] private GameObject[] findGameobjectByComponentChild;
+        [SerializeField] private CapsuleCollider[] findGameobjectByComponentChild;
 
         private void Start()
         {
@@ -22,14 +24,17 @@ namespace AG2187
 
             findGameobjectByOrderChild = transform.GetChild(2).gameObject;
 
-            SphereCollider[] temp = GetComponentsInChildren<SphereCollider>();
-            findGameobjectByComponentChild = new GameObject[temp.Length];
-            for (int i = 0; i < temp.Length; i++)
-            {
-                {
-                    findGameobjectByComponentChild[i] = temp[i].gameObject;
-                }
-            }
+            findGameobjectByComponentChild = FindObjectsByType<CapsuleCollider>(FindObjectsSortMode.None);
+            var temp = findGameobjectByComponentChild[0].gameObject;
+            
+            //SphereCollider[] temp = GetComponentsInChildren<SphereCollider>();
+            //findGameobjectByComponentChild = new GameObject[temp.Length];
+            //for (int i = 0; i < temp.Length; i++)
+            //{
+            //    {
+            //        findGameobjectByComponentChild[i] = temp[i].gameObject;
+            //    }
+            //}
         }
 
     } 
